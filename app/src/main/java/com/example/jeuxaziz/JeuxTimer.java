@@ -19,7 +19,6 @@ public class JeuxTimer extends AppCompatActivity {
 
 
     private TextView mTextViewCountDown;
-
     private TextView nombre1;
     private TextView nombre2;
     private TextView operation;
@@ -33,8 +32,10 @@ public class JeuxTimer extends AppCompatActivity {
     private CountDownTimer mCountDownTimer;
     private boolean mTimerRunning;
     private boolean suivant=false;
+    private boolean arret=false;
 
     private long mTimeLeftInMillis;
+    private long mTimeLeftInMillis2=20000;
     private int valeurMin;
     private int valeurMax;
     private int lavaleur1 = 10;
@@ -48,18 +49,13 @@ public class JeuxTimer extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jeux);
-
         mTextViewCountDown = findViewById(R.id.text_view_countdown);
-
         nombre1 = findViewById(R.id.nombre1);
         nombre2 = findViewById(R.id.nombre2);
-
         operation = findViewById(R.id.operation);
         valider = findViewById(R.id.valider);
         reponse = findViewById(R.id.reponse);
         points = findViewById(R.id.points);
-
-
         points.setText(point + "");
         Intent intent = getIntent();
         int dificulte = intent.getIntExtra("difficulte", 1);
@@ -99,11 +95,7 @@ public class JeuxTimer extends AppCompatActivity {
 
         startTimer();
         updateCountDownText();
-
-
-            jouer();
-
-
+        runThread();
     }
 
     private void startTimer() {
@@ -117,24 +109,11 @@ public class JeuxTimer extends AppCompatActivity {
             @Override
             public void onFinish() {
                 mTimerRunning = false;
-                //ici lancer le resultat
 
             }
         }.start();
 
         mTimerRunning = true;
-
-    }
-
-    private void pauseTimer() {
-        mCountDownTimer.cancel();
-        mTimerRunning = false;
-
-    }
-
-    private void resetTimer() {
-        mTimeLeftInMillis = 300000;
-        updateCountDownText();
 
     }
 
@@ -147,18 +126,13 @@ public class JeuxTimer extends AppCompatActivity {
 
 
     private void jouer() {
+        runThread2();
+        suivant=false;
+        lavaleur1 = valeurMin + r.nextInt(valeurMax - valeurMin);
+        lavaleur2 = valeurMin + r.nextInt(valeurMax - valeurMin);
+        loperation = r.nextInt(valeuroperationmax - 0);
 
-
-       // while ((mTimerRunning)) {
-            suivant=false;
-
-            //while (!suivant) {
-                lavaleur1 = valeurMin + r.nextInt(valeurMax - valeurMin);
-            lavaleur2 = valeurMin + r.nextInt(valeurMax - valeurMin);
-            loperation = r.nextInt(valeuroperationmax - 0);
-
-
-            switch (loperation) {
+             switch (loperation) {
                 case 0: {
                     nombre1.setText(lavaleur1 + "");
                     nombre2.setText(lavaleur2 + "");
@@ -192,36 +166,87 @@ public class JeuxTimer extends AppCompatActivity {
                     // code block
             }
 
+        valider.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-            valider.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+                if (Integer.parseInt(reponse.getText().toString()) == leresultat) {
+                    point = point + 10;
+                    points.setText(point + "");
+                    suivant=true;
 
-                    if (Integer.parseInt(reponse.getText().toString()) == leresultat) {
-                        point = point + 10;
-                        Log.e("ikchem", "athan gel if");
-                        points.setText(point + "");
-                        suivant=true;
+                } else {
 
-                    } else {
-
-                        point = point - 1;
-                        Log.e("ikchem", "athan gel else");
-                        points.setText(point + "");
-                        suivant=true;
-                    }
-
+                    point = point - 1;
+                    points.setText(point + "");
+                    suivant=true;
                 }
 
-
-            });
-
-        //}
+            }
 
 
-    //}
+        });
+
+
+
+
 
 }
+
+
+    private void runThread2() {
+
+        new Thread() {
+            public void run() {
+                while (!suivant) {
+                    try {
+                        runOnUiThread(new Runnable() {
+
+                            @Override
+                            public void run() {
+
+                            }
+                        });
+
+                        Thread.sleep(10000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+        }.start();
+    }
+
+
+    private void runThread() {
+
+        new Thread() {
+            public void run() {
+                while (mTimerRunning) {
+                    try {
+                        runOnUiThread(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                jouer();
+                            }
+                        });
+
+                        Thread.sleep(10000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                Intent res = new Intent(JeuxTimer.this,Resultat.class);
+                res.putExtra("POINTS", point+"");
+                startActivity(res);
+
+
+            }
+        }.start();
+    }
 
 
 

@@ -60,8 +60,8 @@
             android:layout_marginBottom="10dp"
             android:padding="15dp"
             android:shadowColor="@android:color/transparent"
-            android:text="VALEUR1"
-            android:textSize="24sp" />
+            android:text="v"
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/operation"
@@ -73,8 +73,8 @@
             android:layout_marginBottom="10dp"
             android:padding="15dp"
             android:shadowColor="@android:color/transparent"
-            android:text="+/*-"
-            android:textSize="24sp"
+            android:text="+"
+            android:textSize="30sp"
             android:textStyle="bold" />
 
         <TextView
@@ -87,8 +87,8 @@
             android:layout_marginBottom="10dp"
             android:padding="15dp"
             android:shadowColor="@android:color/transparent"
-            android:text="VALEUR2"
-            android:textSize="24sp" />
+            android:text="v"
+            android:textSize="30sp" />
 
 
 
@@ -106,7 +106,7 @@
         android:id="@+id/valider"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="commencer" />
+        android:text="valider" />
 
 
 

@@ -14,14 +14,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         val facile: CheckBox = findViewById(R.id.facile)
         val moyen: CheckBox =findViewById(R.id.moyen)
         val difficile: CheckBox =findViewById(R.id.difficil)
         val mortel: CheckBox =findViewById(R.id.mortel)
-
-
-
         facile.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 moyen.setChecked(false)
@@ -41,7 +37,6 @@ class MainActivity : AppCompatActivity() {
 
             }
         }
-
         difficile.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 moyen.setChecked(false)
@@ -51,8 +46,6 @@ class MainActivity : AppCompatActivity() {
 
             }
         }
-
-
         mortel.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 moyen.setChecked(false)
@@ -62,8 +55,6 @@ class MainActivity : AppCompatActivity() {
 
             }
         }
-
-
         continuer.setOnClickListener {
 
             if (difficulte==0){
