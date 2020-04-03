@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="20dp">
+
+    <TextView
+        android:id="@+id/text_view_countdown"
+        android:layout_width="wrap_content"
+        android:layout_height="61dp"
+        android:text="00:00"
+        android:textColor="@android:color/black"
+        android:textSize="56sp" />
+
+        <TextView
+            android:id="@+id/vide"
+            android:layout_width="wrap_content"
+            android:layout_height="61dp"
+            android:text="   "
+            android:textColor="@android:color/black"
+            android:textSize="56sp" />
+
+        <TextView
+            android:id="@+id/points"
+            android:layout_width="wrap_content"
+            android:layout_height="61dp"
+            android:text="10"
+            android:textColor="@android:color/black"
+            android:textSize="56sp" />
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="20dp">
+
+
+        <TextView
+            android:id="@+id/nombre1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:padding="15dp"
+            android:shadowColor="@android:color/transparent"
+            android:text="VALEUR1"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/operation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:padding="15dp"
+            android:shadowColor="@android:color/transparent"
+            android:text="+/*-"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/nombre2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:padding="15dp"
+            android:shadowColor="@android:color/transparent"
+            android:text="VALEUR2"
+            android:textSize="24sp" />
+
+
+
+
+    </LinearLayout>
+
+
+    <EditText
+        android:id="@+id/reponse"
+        android:layout_width="374dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:inputType="phone" />
+    <Button
+        android:id="@+id/valider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="commencer" />
+
+
+
+
+</LinearLayout>
