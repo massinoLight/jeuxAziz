@@ -38,6 +38,7 @@ public class JeuxTimer extends AppCompatActivity {
     private long mTimeLeftInMillis2=20000;
     private int valeurMin;
     private int valeurMax;
+    private int temp;
     private int lavaleur1 = 10;
     private int lavaleur2 = 5;
     private int loperation = 0;
@@ -127,50 +128,57 @@ public class JeuxTimer extends AppCompatActivity {
 
     private void jouer() {
         runThread2();
-        suivant=false;
+
         lavaleur1 = valeurMin + r.nextInt(valeurMax - valeurMin);
         lavaleur2 = valeurMin + r.nextInt(valeurMax - valeurMin);
         loperation = r.nextInt(valeuroperationmax - 0);
 
-             switch (loperation) {
-                case 0: {
-                    nombre1.setText(lavaleur1 + "");
-                    nombre2.setText(lavaleur2 + "");
-                    operation.setText("+");
-                    leresultat = lavaleur1 + lavaleur2;
-                    break;
-                }
-                case 1: {
-                    nombre1.setText(lavaleur1 + "");
-                    nombre2.setText(lavaleur2 + "");
-                    operation.setText("-");
-                    leresultat = lavaleur1 - lavaleur2;
-                    break;
-                }
-
-                case 2: {
-                    nombre1.setText(lavaleur1 + "");
-                    nombre2.setText(lavaleur2 + "");
-                    operation.setText("X");
-                    leresultat = lavaleur1 * lavaleur2;
-                    break;
-                }
-                case 3: {
-                    nombre1.setText(lavaleur1 + "");
-                    nombre2.setText(lavaleur2 + "");
-                    operation.setText("/");
-                    leresultat = lavaleur1 / lavaleur2;
-                    break;
-                }
-                default:
-                    // code block
+        switch (loperation) {
+            case 0: {
+                nombre1.setText(lavaleur1 + "");
+                nombre2.setText(lavaleur2 + "");
+                operation.setText("+");
+                leresultat = lavaleur1 + lavaleur2;
+                break;
             }
+            case 1: {
+                nombre1.setText(lavaleur1 + "");
+                nombre2.setText(lavaleur2 + "");
+                operation.setText("-");
+                leresultat = lavaleur1 - lavaleur2;
+                break;
+            }
+
+            case 2: {
+                nombre1.setText(lavaleur1 + "");
+                nombre2.setText(lavaleur2 + "");
+                operation.setText("X");
+                leresultat = lavaleur1 * lavaleur2;
+                break;
+            }
+            case 3: {
+                nombre1.setText(lavaleur1 + "");
+                nombre2.setText(lavaleur2 + "");
+                operation.setText("/");
+                leresultat = lavaleur1 / lavaleur2;
+                break;
+            }
+            default:
+                // code block
+        }
 
         valider.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (Integer.parseInt(reponse.getText().toString()) == leresultat) {
+                if ( reponse.getText().toString()!="") {
+                    temp=Integer.parseInt(reponse.getText().toString());
+
+                } else {
+                 temp=0;
+                }
+
+                if ( temp== leresultat) {
                     point = point + 10;
                     points.setText(point + "");
                     suivant=true;
@@ -186,29 +194,26 @@ public class JeuxTimer extends AppCompatActivity {
 
 
         });
-
-
-
-
-
-}
+    }
 
 
     private void runThread2() {
 
         new Thread() {
             public void run() {
-                while (!suivant) {
+                while (!arret) {
                     try {
                         runOnUiThread(new Runnable() {
 
                             @Override
                             public void run() {
 
+                                startcalcule();
+
                             }
                         });
 
-                        Thread.sleep(10000);
+                        Thread.sleep(10);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -218,6 +223,35 @@ public class JeuxTimer extends AppCompatActivity {
         }.start();
     }
 
+
+
+
+    private void startcalcule() {
+        mCountDownTimer = new CountDownTimer(mTimeLeftInMillis2, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                if(suivant){
+                    mTimeLeftInMillis2 = 0;
+                }
+                else
+                {
+                    mTimeLeftInMillis2 = millisUntilFinished;
+                }
+
+
+            }
+
+            @Override
+            public void onFinish() {
+                arret = true;
+                suivant=true;
+
+            }
+        }.start();
+
+        arret = false;
+
+    }
 
     private void runThread() {
 
